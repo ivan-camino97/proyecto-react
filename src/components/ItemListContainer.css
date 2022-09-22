@@ -1,0 +1,11 @@
+.container{
+    display: flex; flex-direction: column;
+    justify-content: center;
+}
+.title{
+    color: revert;
+    font-family: monospace;
+}
+.greeting{
+    font-family: unset;
+}

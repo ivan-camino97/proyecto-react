@@ -1,0 +1,9 @@
+.containernav{
+    align-items: flex-start;
+}
+
+.brand{
+display: flex;
+align-items: flex-start;
+font-family: monospace;
+}
