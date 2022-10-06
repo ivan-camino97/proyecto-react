@@ -14,8 +14,8 @@ const NavBarra = () => {
             <Nav.Link as={Link} to='/'>
               inicio
             </Nav.Link>
-            <Nav.Link as={Link} to='/category/nosotros'>Nosotros</Nav.Link>
-            <Nav.Link as={Link} to='/category/productos'>Productos</Nav.Link>
+            <Nav.Link as={Link} to='/category/chica'>bebida chica</Nav.Link>
+            <Nav.Link as={Link} to='/category/grande'>bebida grande</Nav.Link>
             <Nav.Link as={Link} to='/category/contacto'>Contacto</Nav.Link>
           </Nav>
           <CartWidget />

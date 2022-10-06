@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProduct } from './utils/products';
 import Item from './ItemListc/Item';
+import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = () => {
 
@@ -16,11 +17,11 @@ useEffect(() => {
     })
     .catch(error => console.warn(error))
 }, [id])
-console.log(bebidas)
+
     return (
         <Container>
            <h1>Detalle del producto</h1> 
-           <Item bebida={bebidas} />
+          {bebidas && <ItemDetail bebidas={bebidas} />}
         </Container> 
     
     );

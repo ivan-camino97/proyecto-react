@@ -2,23 +2,27 @@ import './ItemListContainer.css'
 import ItemList from './ItemList'
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom';
-import { getProducts } from '../utils/products'
+import { getAllProducts, getAllProductsByCategory } from '../utils/products'
 
 
 
 const ItemListContainer = ({ greeting }) => {
-const { categoryName } = useParams()
+const { categoryId } = useParams()
 const [ bebidas, setBebidas] = useState([]);
 
-    useEffect(() => {
-        console.log(categoryName)
-    }, [categoryName])
+    
     
 useEffect(() => {
-getProducts()
-.then((data) => setBebidas(data))
-.catch((error) => console.warn(error))
-}, [])
+    if (categoryId) {
+getAllProductsByCategory(categoryId)
+        .then((data) => setBebidas(data))
+        .catch((error) => console.warn(error))
+    }else {
+        getAllProducts()
+        .then((data) => setBebidas(data))
+        .catch((error) => console.warn(error))
+    }
+}, [categoryId])
 
     return (  
         <div className="container">
