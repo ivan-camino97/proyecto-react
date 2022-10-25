@@ -14,27 +14,27 @@ import { useEffect } from 'react';
 import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
 
 function App() {
+  useEffect(() => {
+    const database = getFirestore();
+
+     const itemReference = doc(database, 'Ítems', 'rSxlsXv4sX8isEZ2snn4');
+
+     getDoc(itemReference)
+       .then((snapshot) => {
+
+       if(snapshot.exists()) {
+         
+         const item = {
+           id: snapshot.id,
+         ...snapshot.data()
+       };
+          console.log(item);
+       }
+     })
+       .catch(error => console.warn(error));
+  }, []);
 
   useEffect(() => {
-     const database = getFirestore();
-
-      const itemReference = doc(database, 'items', 'rSxlsXv4sX8isEZ2snn4');
-
-      getDoc(itemReference)
-      .then((snapshot) => {
-        if(snapshot.exists()) {
-          
-          const item = {
-            id: snapshot.id ,
-          ...snapshot.data()
-        };
-           console.log(item);
-        }
-      })
-        .catch(error => console.warn(error));
-   }, [])
-
-   useEffect(() => {
     const database = getFirestore()
 
     const referenceCollection = collection(database, 'items');
@@ -50,7 +50,8 @@ function App() {
       console.log(list);
     })
     .catch(error => console.warn(error))
-   }, [])
+   }, []);
+
 
   return (
    <BrowserRouter>

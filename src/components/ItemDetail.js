@@ -1,19 +1,27 @@
 import { useState } from "react";
 import Item from "./ItemListc/Item";
+import ItemCount from "./ItemCount/ItemCount"
+
 
 const ItemDetail = ({ bebidas }) => {
     const [count, setCount] = useState(0);
+    const [showItemCount, setShowItemCount] = useState(true)
 
-const handleClick = (value) => {
+const handleAdd = (value) => {
     setCount(value);
+    setShowItemCount(false);
 };
 
     return ( 
         <>
          <Item bebida={bebidas} />
-        <button onClick={() => handleClick(count - 1)}>-</button>
-        <h4> cantidad de click {count}</h4>
-        <button onClick={() => handleClick(count + 1)}>+</button>
+         {
+            showItemCount && (
+            <ItemCount initial={1} stock={10} onAdd={handleAdd} />
+            )
+
+         }
+        
         </>
         
      );

@@ -9,7 +9,6 @@ import { getAllProducts, getAllProductsByCategory } from '../utils/products'
 const ItemListContainer = ({ greeting }) => {
 const { categoryId } = useParams()
 const [ bebidas, setBebidas] = useState([]);
-
     
     
 useEffect(() => {

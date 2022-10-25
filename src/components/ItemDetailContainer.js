@@ -9,7 +9,6 @@ const ItemDetailContainer = () => {
 
 const { id } = useParams()
 const [ bebidas, setBebidas] = useState();
-
 useEffect(() => {
     getProduct(id)
     .then((data) => {
