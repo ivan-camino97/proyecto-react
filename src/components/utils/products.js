@@ -1,3 +1,5 @@
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+
 const bebidas = [
     {id: 1, nombre:'CocaCola', category:'grande', description:'cocacola 1.750ml', price: 400, pictureUrl:'https://tupicada.com.ar/wp-content/uploads/2019/09/coca-cola-1-75l1-af6834bdee0a01311d15484387930129-1024-1024.jpg', stock: 10},
     {id: 2, nombre:'CocaGrande', category:'grande', description:'cocacola 2.250ml', price: 500, pictureUrl:'https://club23.com.ar/wp-content/uploads/2021/11/Coca-Cola-2.25L.jpg', stock: 10},
@@ -6,13 +8,19 @@ const bebidas = [
 ]
 
 export const getAllProducts = () => {
-const promise = new Promise((resolve) => {
-    setTimeout(() => {
-        return resolve(bebidas);
-    }, 2000)
-
-}) 
-return promise
+const database = getFirestore()
+const collectionReference = collection(database, 'items');
+return  getDocs(collectionReference)
+    .then(snapshot => {
+        const list = snapshot
+        .docs
+        .map((doc) => ({
+            id: doc.id,
+            ...bebidas.data()
+        }));
+        return list;
+    })
+    .catch(error => console.warn(error))
 };
 
  export const getProduct = (id) => {

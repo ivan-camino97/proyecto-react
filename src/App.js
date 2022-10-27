@@ -12,6 +12,7 @@ import Cart from './components/cart/cart';
 import Checkout from './components/Checkout'
 import { useEffect } from 'react';
 import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { CartProvider } from './context/cartContext';
 
 function App() {
   useEffect(() => {
@@ -34,27 +35,9 @@ function App() {
        .catch(error => console.warn(error));
   }, []);
 
-  useEffect(() => {
-    const database = getFirestore()
-
-    const referenceCollection = collection(database, 'items');
-
-    getDocs(referenceCollection)
-    .then((snapshot) => {
-      const list = snapshot
-      .docs
-      .map((doc) => ({
-        id: doc.id ,
-        ...doc.data()
-      }))
-      console.log(list);
-    })
-    .catch(error => console.warn(error))
-   }, []);
-
-
   return (
    <BrowserRouter>
+   <CartProvider>
     <NavBarra />
     <Routes>
       <Route path='/' element={<ItemListContainer  greeting={'bienvenido a distribuidora camino'}/>} />
@@ -63,6 +46,7 @@ function App() {
       <Route path='/Cart' element={<Cart/>} />
       <Route path='/Checkout' element={<Checkout/>} />
     </Routes>
+    </CartProvider>
    </BrowserRouter>
   );
 }

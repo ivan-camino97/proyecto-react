@@ -27,7 +27,7 @@ return (
                -
             </Button>
             <h5>{count}</h5>
-            <Button varian="succes" disabled={count >= stock} onClick={handleAdd}>
+            <Button varian="success" disabled={count >= stock} onClick={handleAdd}>
                +
             </Button>
         </div>
