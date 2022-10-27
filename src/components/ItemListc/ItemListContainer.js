@@ -23,7 +23,6 @@ getAllProductsByCategory(categoryId)
     }
 }, [categoryId])
 
-
     return (  
         <div className="container">
         <h1 className="title"> nuestros Productos </h1>
