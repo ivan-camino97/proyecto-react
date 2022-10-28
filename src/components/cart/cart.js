@@ -1,18 +1,31 @@
-import { useContext } from 'react';
-import { Container, Table } from 'react-bootstrap';
+import { useContext, useState } from 'react';
+import { Container, Table,  Modal, Button } from 'react-bootstrap';
 import CartContext from '../../context/cartContext';
 import { FiTrash2 } from "react-icons/fi"
 import { Button } from 'bootstrap';
 import { Link } from "react-router-dom";
 
+const buyerMock = {
+  name: 'distribuidora camino',
+  phone: '1125097866',
+  email: 'distribuidoraC@gmail.com'
+}
+
 const Cart = () => {
+  const [user, setUser] = useState(buyerMock) 
+  const [showModal, setShowModal] = useState(false)
 
 const { cart, total, removeItem } = useContext(CartContext)
 console.log({cart, total});
 
-const handleClick = (itemId) => {
+const handleRemove = (itemId) => {
     removeItem(itemId)
 }
+
+const handleOpen = () => setShowModal(true);
+
+
+const handleClose = () => setShowModal(false)
 
 const showTable = cart.lenght > 0
     return ( 
@@ -35,12 +48,13 @@ const showTable = cart.lenght > 0
                 <td>{item.nombre}</td>
                 <td>{item.price}</td>
                 <td>{item.quantity}</td>
-                <td><FiTrash2 onClick={() => handleClick(cart[0].id)}/></td>
+                <td><FiTrash2 onClick={() => handleRemove(item.id)}/></td>
             </tr>
             ))}
       </tbody>
       </Table>
       <h3>total: $ {total}</h3>
+      <Button variant="success" onClick={handleOpen}>finalizar compra</Button>
    </>
     )}
     {!showTable&& (
@@ -51,6 +65,33 @@ const showTable = cart.lenght > 0
     </Link>
 </>
     )}
+    <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>finalizar compra</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" placeholder="Ingrese email" />
+         </Form.Group>
+         <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control type="text" placeholder="ingresar nombre" />
+         </Form.Group>
+         <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Telefono</Form.Label>
+            <Form.Control type="text" placeholder="ingresar telefono" />
+         </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+           cancelar
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            comprar
+          </Button>
+        </Modal.Footer>
+      </Modal>
        </Container>
     );
 }
