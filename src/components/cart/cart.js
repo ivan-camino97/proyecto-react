@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
-import { Container, Table,  Modal, Button } from 'react-bootstrap';
+import { Container, Table,  Modal, Button, Form } from 'react-bootstrap';
 import CartContext from '../../context/cartContext';
 import { FiTrash2 } from "react-icons/fi"
-import { Button } from 'bootstrap';
 import { Link } from "react-router-dom";
+import { createOrder } from '../utils/order';
+import OrderModal from '../OrderModal'
 
 const buyerMock = {
   name: 'distribuidora camino',
@@ -20,6 +21,15 @@ console.log({cart, total});
 
 const handleRemove = (itemId) => {
     removeItem(itemId)
+}
+
+const handleBuy = () => {
+  const newOrder = {
+  buyer: buyerMock,
+  items: cart,
+  total
+  }
+  createOrder(newOrder)
 }
 
 const handleOpen = () => setShowModal(true);
@@ -65,33 +75,7 @@ const showTable = cart.lenght > 0
     </Link>
 </>
     )}
-    <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>finalizar compra</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="Ingrese email" />
-         </Form.Group>
-         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control type="text" placeholder="ingresar nombre" />
-         </Form.Group>
-         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Telefono</Form.Label>
-            <Form.Control type="text" placeholder="ingresar telefono" />
-         </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-           cancelar
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            comprar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+    <OrderModal showModal={showModal} onClose={handleClose} onBuy={handleBuy} />
        </Container>
     );
 }

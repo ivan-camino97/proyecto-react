@@ -13,6 +13,7 @@ import Checkout from './components/Checkout'
 import { useEffect } from 'react';
 import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
 import { CartProvider } from './context/cartContext';
+import { createAllProducts } from './components/utils/products';
 
 function App() {
 
