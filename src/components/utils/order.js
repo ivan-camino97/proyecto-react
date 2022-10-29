@@ -6,6 +6,6 @@ const database = getFirestore()
 const collectionReference = collection(database, 'orders')
 
 return addDoc(collectionReference, newOrder)
-.then((snapshot) => console.log(snapshot))
+.then((snapshot) => snapshot.id)
 .catch((error) => console.warn(error))
 }

@@ -15,21 +15,23 @@ const buyerMock = {
 const Cart = () => {
   const [user, setUser] = useState(buyerMock) 
   const [showModal, setShowModal] = useState(false)
-
-const { cart, total, removeItem } = useContext(CartContext)
-console.log({cart, total});
+  const [orderId, setOrderId] = useState()
+  const { cart, total, removeItem, clear } = useContext(CartContext)
+        console.log({cart, total});
 
 const handleRemove = (itemId) => {
     removeItem(itemId)
 }
 
-const handleBuy = () => {
+const handleBuy = async () => {
   const newOrder = {
   buyer: buyerMock,
   items: cart,
   total
   }
-  createOrder(newOrder)
+  const newOrderId = await createOrder(newOrder)
+  setOrderId(newOrderId)
+  clear()
 }
 
 const handleOpen = () => setShowModal(true);
@@ -75,7 +77,11 @@ const showTable = cart.lenght > 0
     </Link>
 </>
     )}
-    <OrderModal showModal={showModal} onClose={handleClose} onBuy={handleBuy} />
+    <OrderModal 
+    showModal={showModal} 
+    onClose={handleClose} 
+    onBuy={handleBuy}
+    orderId={orderId}/>
        </Container>
     );
 }

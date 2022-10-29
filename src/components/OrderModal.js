@@ -1,6 +1,11 @@
-import { Modal, Form, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Modal, Form, Button, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const OrderModal = ({ showModal, onClose, onBuy}) => {
+const OrderModal = ({ showModal, onClose, onBuy, orderId}) => {
+
+    const [showOrderId, setShowOrderId] = useState(false)
+
     return (  
         <Modal show={showModal} onHide={onClose}>
         <Modal.Header closeButton>
@@ -21,12 +26,28 @@ const OrderModal = ({ showModal, onClose, onBuy}) => {
          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+            {!orderId && (
+        <>
+          <Button variant="secondary" onClick={onClose}>
            cancelar
           </Button>
           <Button variant="primary" onClick={onBuy}>
             comprar
           </Button>
+        </>
+            )}
+        {orderId && (
+            <>
+            <Alert key='success' variant='success'>
+                 {orderId}
+            </Alert>
+            <Link to='/'>
+              <Button variant="primary">
+                 seguir comprando
+              </Button>
+            </Link>
+            </>
+        )}
         </Modal.Footer>
       </Modal>
     );
