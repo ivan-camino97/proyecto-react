@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ivan-camino97.github.io/proyecto-react",
   "name": "react-aplicacion",
   "version": "0.1.0",
   "private": true,
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }
